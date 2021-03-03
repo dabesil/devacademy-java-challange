@@ -80,11 +80,11 @@ Todo novo pedido de venda terá que ter o status inicial **PENDENTE**. A cada no
 
 O endpoint não deve permitir:
 
- - pedido de venda sem produtos
- - produtos sem quantidade
- - produtos sem valor
- - produtos sem nome
- - alterar o status
+ - pedido de venda sem produtos V
+ - produtos sem quantidade V
+ - produtos sem valor V
+ - produtos sem nome V
+ - alterar o status V
  
 ### Endpoint – Mudança de Status de Pedido de Venda
 
@@ -100,9 +100,9 @@ A função desse endpoint é alterar o status do pedido de venda a medida em que
 
 O endpoint **não** deve permitir:
 
- - alterar o status para CANCELADO caso o status atual seja EM_ROTA, ENTREGUE ou CANCELADO
- - alterar o status para EM_ROTA caso o status atual não seja PRONTO
- - alterar o status para ENTREGUE caso o status atual não seja EM_ROTA
+ - alterar o status para CANCELADO caso o status atual seja EM_ROTA, ENTREGUE ou CANCELADO v
+ - alterar o status para EM_ROTA caso o status atual não seja PRONTO v
+ - alterar o status para ENTREGUE caso o status atual não seja EM_ROTA v
 
 Para cada ação de sucesso de alteração do status a API deve de retornar a seguinte resposta:
 
