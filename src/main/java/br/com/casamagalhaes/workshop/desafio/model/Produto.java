@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Produto {
     
     @NotEmpty(message = "O produto deve ter descrição")
-    @Size(min = 2, message = "Informe uma descrição com no mínimo 2 caracteres")
+    @Size(min = 2, max = 50, message = "Informe uma descrição com no mínimo 2 caracteres")
     private String descricao;
     @Positive(message = "O produto deve ter preço")
     private Double precoUnitario;

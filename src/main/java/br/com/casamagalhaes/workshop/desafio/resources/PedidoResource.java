@@ -20,7 +20,9 @@ import br.com.casamagalhaes.workshop.desafio.dto.DTO;
 import br.com.casamagalhaes.workshop.desafio.dto.PedidoDTO;
 import br.com.casamagalhaes.workshop.desafio.model.Pedido;
 import br.com.casamagalhaes.workshop.desafio.service.PedidoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Pedido")
 @RestController
 @RequestMapping(path = "/api/v1/pedidos")
 public class PedidoResource {
@@ -56,7 +58,7 @@ public class PedidoResource {
         return new PedidoDTO(service.alterarStatus(id, DTO.fromDTO2(pedidoDTO)));
     }
     
-    @PutMapping("/{id}/alterar")
+    @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public PedidoDTO alterarPedido(@PathVariable Long id, @RequestBody PedidoDTO pedidoDTO){
         return new PedidoDTO(service.alterarPedido(id, DTO.fromDTO(pedidoDTO)));

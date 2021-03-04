@@ -36,11 +36,11 @@ public class Pedido {
     private String nomeCliente;
 
     @NotEmpty(message = "O telefone do cliente deve ser informado")
-    @Size(min = 9, message = "Um telefone válido deve ter no mínimo 9 números")
+    @Size(min = 9, max=20, message = "Um telefone válido deve ter no mínimo 9 números")
     private String telefone;
 
     @NotEmpty(message = "O endereço do cliente deve ser informado")
-    @Size(min = 4, message = "Um endereço válido deve ser informado")
+    @Size(min = 4,max = 70, message = "Um endereço válido deve ser informado")
     private String endereco;
     
     @ElementCollection

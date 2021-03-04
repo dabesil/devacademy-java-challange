@@ -100,7 +100,7 @@ public class PedidoResourceTest {
         .expect()
             .statusCode(HttpStatus.SC_OK)
         .when()
-            .put("/1/alterar");
+            .put("/1");
     } 
 
     @Test
