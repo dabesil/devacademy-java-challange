@@ -7,4 +7,5 @@ public enum StatusPedido {
     EM_ROTA,
     ENTREGUE,
     CANCELADO
+    
 }

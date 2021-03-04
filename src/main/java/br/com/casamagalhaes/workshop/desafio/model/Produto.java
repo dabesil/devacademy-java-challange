@@ -29,6 +29,4 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    
-    
 }

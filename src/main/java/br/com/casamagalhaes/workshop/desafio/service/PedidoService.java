@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import br.com.casamagalhaes.workshop.desafio.model.Pedido;
 import br.com.casamagalhaes.workshop.desafio.model.enums.StatusPedido;
@@ -20,9 +22,14 @@ public class PedidoService {
     @Autowired
     private PedidoRepository repository;
 
-    public Page<Pedido> buscarTodos(Integer numPag, Integer tamPag) {
-        Pageable pageable = PageRequest.of(numPag, tamPag);
-        return repository.findAll(pageable);
+    public Page<Pedido> buscarTodos() {
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Pedido> pagina = repository.findAll(pageable);
+        if(pagina.getTotalElements() > 0)
+            return pagina;
+        else{
+            throw new EntityNotFoundException("Não existem Produtos cadastrados");
+        }    
     }
 
     public Pedido buscarPorId(Long id) {
@@ -30,12 +37,17 @@ public class PedidoService {
     }
 
     public List<Pedido> buscarPorNome(String nome) {
-        return repository.findByNomeClienteContainsIgnoreCase(nome);
+        List<Pedido> lista = repository.findByNomeClienteContainsIgnoreCase(nome);
+        if(lista.size() > 0)
+            return lista;
+        else{
+            throw new EntityNotFoundException("Não existem Produtos cadastrados com o nome informado");
+        }   
     }
 
     public Pedido salvarPedido(Pedido pedido) {
         if(pedido.getId() != null && repository.existsById(pedido.getId()))
-            throw new UnsupportedOperationException("Um pedido com este id já existe");
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST,"Um pedido com este id já existe");
         else
             return repository.saveAndFlush(pedido);
     }
@@ -76,7 +88,7 @@ public class PedidoService {
         try {
             repository.deleteById(id);
         } catch (Exception e) {
-            throw new EntityNotFoundException("O produto com o id " + id + "não existe.");
+            throw new EntityNotFoundException("O produto com o id " + id + " não existe.");
         }
     }
 
@@ -94,4 +106,5 @@ public class PedidoService {
         alterado.setStatus(pedido.getStatus());
         return repository.saveAndFlush(alterado);
     }
+    
 }

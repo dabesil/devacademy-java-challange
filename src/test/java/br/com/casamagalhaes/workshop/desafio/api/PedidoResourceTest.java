@@ -50,7 +50,7 @@ public class PedidoResourceTest {
         .expect()
             .statusCode(HttpStatus.SC_OK)
         .when()
-            .get("/paginada?numPag=1&tamPag=10");          
+            .get("/all");          
     }
 
     @Test
@@ -60,7 +60,7 @@ public class PedidoResourceTest {
         .expect()
             .statusCode(HttpStatus.SC_OK)
         .when()
-            .get("/nome?nome=client");          
+            .get("?nome=client");          
     }
 
     @Test
@@ -70,7 +70,7 @@ public class PedidoResourceTest {
         .expect()
             .statusCode(HttpStatus.SC_OK)
         .when()
-            .get("/id?id=1");          
+            .get("/1");          
     }
 
     @Test
@@ -129,14 +129,121 @@ public class PedidoResourceTest {
             .delete("/5");
     } 
 
+    @Test
+    public void testarErroGETPaginada(){
+        given()
+            .spec(requisicao)
+        .expect()
+            .statusCode(HttpStatus.SC_BAD_REQUEST)
+        .when()
+            .get();
+    } 
+
+    @Test
+    public void testarErroGETNome(){
+        given()
+            .spec(requisicao)
+        .expect()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+        .when()
+            .get("?nome=kxwyz");
+    } 
+
+    @Test
+    public void testarErroGETId(){
+        given()
+            .spec(requisicao)
+        .expect()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+        .when()
+            .get("/99999999");  
+    } 
+
+    @Test
+    public void testarErroPOST() throws JsonProcessingException{
+        given()
+            .spec(requisicao)
+            .body(objectMapper.writeValueAsString(pedidoTestePOSTErro()))
+        .when()
+            .post()
+        .then()
+            .statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY); 
+    } 
+
+    @Test
+    public void testarErroPOST2() throws JsonProcessingException{
+        given()
+            .spec(requisicao)
+            .body(objectMapper.writeValueAsString(pedidoTestePUT()))
+        .when()
+            .post()
+        .then()
+            .statusCode(HttpStatus.SC_BAD_REQUEST); 
+    }
+
+    @Test
+    public void testarErroPOSTStatus() throws JsonProcessingException{
+        given()
+            .spec(requisicao)
+            .body(objectMapper.writeValueAsString(pedidoTesteStatus()))
+        .expect()
+            .statusCode(HttpStatus.SC_NOT_FOUND)    
+        .when()
+            .post("/99/status");
+    }
+
+    @Test
+    public void testarErroPOSTStatus2() throws JsonProcessingException{
+        given()
+            .spec(requisicao)
+            .body(objectMapper.writeValueAsString(pedidoTesteStatusErro()))
+        .expect()
+            .statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)    
+        .when()
+            .post("/1/status");
+    }
+
+    @Test
+    public void testarErroPUT() throws JsonProcessingException{
+        given()
+            .spec(requisicao)
+            .body(objectMapper.writeValueAsString(pedidoTestePUT()))
+        .expect()
+            .statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)
+        .when()
+            .put("/2");
+    }
+
+    @Test
+    public void testarErroDELETE(){
+        given()
+            .spec(requisicao)
+        .expect()
+            .statusCode(HttpStatus.SC_NOT_FOUND)
+        .when()
+            .delete("/99999");
+    }
+
     private PedidoDTO pedidoTestePOST(){
         PedidoDTO pedido = instanciarPedidoDTO();     
+        return pedido;    
+    }
+
+    private PedidoDTO pedidoTestePOSTErro(){
+        PedidoDTO pedido = instanciarPedidoDTO();
+        pedido.setNomeCliente("M");     
         return pedido;    
     }
 
     private PedidoDTO pedidoTesteStatus(){
         PedidoDTO pedido = new PedidoDTO();
         pedido.setStatus(StatusPedido.PREPARANDO); 
+        return pedido;    
+    }
+
+    private PedidoDTO pedidoTesteStatusErro(){
+        PedidoDTO pedido = new PedidoDTO();
+        pedido.setStatus(StatusPedido.ENTREGUE); 
         return pedido;    
     }
 

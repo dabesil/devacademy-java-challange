@@ -30,18 +30,18 @@ public class PedidoResource {
     @Autowired
     private PedidoService service;
 
-    @GetMapping({"/paginada"})
-    public Page<Pedido> buscarTodos(@RequestParam Integer numPag, @RequestParam Integer tamPag){
-        return service.buscarTodos(numPag, tamPag);
+    @GetMapping("/all")
+    public Page<Pedido> buscarTodos(){
+        return service.buscarTodos();
     }
 
-    @GetMapping("/nome")
+    @GetMapping()
     public List<Pedido> buscarPorNome(@RequestParam String nome){
         return service.buscarPorNome(nome);
     }
 
-    @GetMapping("/id")
-    public Pedido buscarPorId(@RequestParam Long id){
+    @GetMapping("/{id}")
+    public Pedido buscarPorId(@PathVariable Long id){
         return service.buscarPorId(id);
     }
 
