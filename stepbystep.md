@@ -30,7 +30,7 @@ git clone https://github.com/dabesil/devacademy-java-challange
 
 - Retorna uma lista de todos os pedidos com o nome.
 
-#### Buscar todos os pedidos ("/id?id=X")
+#### Buscar por id ("/id?id=X")
 
 - Retorna o pedido com o id correspondente.
 
@@ -65,7 +65,7 @@ Exemplo:
 - O pedido é salvo por padrão com o status PENDENTE.
 - O valor total dos produtos e o valor total do pedido são calculados automaticamente.
 
-#### Alterar Status ("/{id}/alterar", requer body)
+#### Alterar Status ("/{id}/status", requer body)
 Exemplo:
 ```json
 {
