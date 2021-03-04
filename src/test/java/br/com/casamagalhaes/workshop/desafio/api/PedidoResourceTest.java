@@ -26,7 +26,9 @@ public class PedidoResourceTest {
 
     @Value("${server.port}")
     private Integer porta;
+
     private RequestSpecification requisicao;
+    
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
@@ -143,4 +145,5 @@ public class PedidoResourceTest {
             new Produto("Coxão Mole 1Kg", 43.25, 2)));  
         return pedido;     
     }
+
 }

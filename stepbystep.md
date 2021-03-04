@@ -75,8 +75,8 @@ Exemplo:
 - Os status que um pedido pode ter são PENDENTE, PREPARANDO, PRONTO, EM_ROTA, ENTREGUE, CANCELADO.
 
 - Não é possivel:
-    * alterar o status para CANCELADO caso o status atual seja EM_ROTA, ENTREGUE ou CANCELADO v
-    * alterar o status para EM_ROTA caso o status atual não seja PRONTO v
+    * alterar o status para CANCELADO caso o status atual seja EM_ROTA, ENTREGUE ou CANCELADO 
+    * alterar o status para EM_ROTA caso o status atual não seja PRONTO 
     * alterar o status para ENTREGUE caso o status atual não seja EM_ROTA
 
 ### PUT
