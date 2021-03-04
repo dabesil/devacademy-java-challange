@@ -49,32 +49,31 @@ public class PedidoService {
     public Pedido alterarStatus(Long id, Pedido pedido) {
         Pedido alterado = verificarPedido(id, pedido);
         try {
-            if (pedido.getStatus().equals(StatusPedido.CANCELADO)){
-                if(!alterado.getStatus().equals(StatusPedido.EM_ROTA) && !alterado.getStatus().equals(StatusPedido.ENTREGUE)&& !alterado.getStatus().equals(StatusPedido.CANCELADO))
-                    return salvarAlteracao(pedido, alterado);
-                else
-                    throw new UnsupportedOperationException("O Status não pode ser alterado .");      
-            } else if (pedido.getStatus().equals(StatusPedido.EM_ROTA)) {
-                if(alterado.getStatus().equals(StatusPedido.PRONTO))
-                    return salvarAlteracao(pedido, alterado);
-                else
-                    throw new UnsupportedOperationException("O Status não pode ser alterado .");          
-            } else if (pedido.getStatus().equals(StatusPedido.ENTREGUE)){
-                if(alterado.getStatus().equals(StatusPedido.EM_ROTA))
-                    return salvarAlteracao(pedido, alterado);
-                else
-                    throw new UnsupportedOperationException("O Status não pode ser alterado .");      
+            if (pedido.getStatus().equals(StatusPedido.CANCELADO) && (alterado.getStatus().equals(StatusPedido.EM_ROTA)
+                    || alterado.getStatus().equals(StatusPedido.ENTREGUE)
+                    || alterado.getStatus().equals(StatusPedido.CANCELADO))) {
+                throw new UnsupportedOperationException("O Status não pode ser alterado.");
+            } else if (pedido.getStatus().equals(StatusPedido.EM_ROTA)
+                    && !pedido.getStatus().equals(StatusPedido.PRONTO)) {
+                throw new UnsupportedOperationException("O Status EM_ROTA só pode ser alterado se o atual for PRONTO.");
+            } else if (pedido.getStatus().equals(StatusPedido.ENTREGUE)
+                    && !alterado.getStatus().equals(StatusPedido.EM_ROTA)) {
+                throw new UnsupportedOperationException("O Status ENTREGUE só pode ser alterado se o atual for EM_ROTA.");
             } else {
                 return salvarAlteracao(pedido, alterado);
             }
         } catch (Exception e) {
-            throw new UnsupportedOperationException("O Status não pode ser alterado .");
+            throw new UnsupportedOperationException("O Status não pode ser alterado.");
 
         }
     }
 
     public void removerPedido(Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch (Exception e) {
+            throw new EntityNotFoundException("O produto com o id " + id + "não existe.");
+        }
     }
 
     private Pedido verificarPedido(Long id, Pedido pedido) {

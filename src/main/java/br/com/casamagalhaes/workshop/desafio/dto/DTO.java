@@ -6,7 +6,7 @@ public abstract class DTO {
     
     public static Pedido fromDTO(PedidoDTO pedidoDTO){
         return new Pedido(pedidoDTO.getId(), pedidoDTO.getNomeCliente(), pedidoDTO.getTelefone(), 
-        pedidoDTO.getEndereco(), pedidoDTO.getTaxa(), pedidoDTO.getItens());
+        pedidoDTO.getEndereco(), pedidoDTO.getTaxa(), pedidoDTO.getItens(), pedidoDTO.getStatus());
     }
 
     public static Pedido fromDTO2(PedidoDTO pedidoDTO){

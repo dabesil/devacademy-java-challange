@@ -36,17 +36,4 @@ public class PedidoDTO {
         status = pedido.getStatus();
     }
 
-    public Double setValorTotalProdutos(){
-        double total = 0.0;
-        for(int i = 0; i < itens.size(); i++){
-            total += itens.get(i).getPrecoUnitario() * itens.get(i).getQuantidade();
-        }
-        return total;
-    }
-
-    public Double setValorTotal() {
-        return valorTotalProdutos + taxa;
-    }
-
-
 }

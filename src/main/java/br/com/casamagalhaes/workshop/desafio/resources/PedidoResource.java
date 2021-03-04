@@ -46,15 +46,7 @@ public class PedidoResource {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Pedido salvarPedido(@RequestBody PedidoDTO pedidoDTO){
-        Pedido pedido = DTO.fromDTO(pedidoDTO);
-        return service.salvarPedido(pedido);
-    }
-    
-    @PutMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.OK)
-    public PedidoDTO alterarPedido(@PathVariable Long id, @RequestBody PedidoDTO pedidoDTO){
-        pedidoDTO.setId(id);
-        return new PedidoDTO(service.alterarPedido(id, DTO.fromDTO(pedidoDTO)));
+        return service.salvarPedido(DTO.fromDTO(pedidoDTO));
     }
 
     @PostMapping("{id}/status")
@@ -63,12 +55,17 @@ public class PedidoResource {
         pedidoDTO.setId(id);
         return new PedidoDTO(service.alterarStatus(id, DTO.fromDTO2(pedidoDTO)));
     }
+    
+    @PutMapping("/{id}/alterar")
+    @ResponseStatus(code = HttpStatus.OK)
+    public PedidoDTO alterarPedido(@PathVariable Long id, @RequestBody PedidoDTO pedidoDTO){
+        return new PedidoDTO(service.alterarPedido(id, DTO.fromDTO(pedidoDTO)));
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void removerPedido(@PathVariable Long id){
         service.removerPedido(id);
     }
-  
-
+    
 }

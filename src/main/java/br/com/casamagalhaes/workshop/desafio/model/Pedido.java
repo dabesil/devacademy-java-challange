@@ -64,7 +64,8 @@ public class Pedido {
     public Pedido(){
     }
 
-    public Pedido(Long id, String nomeCliente, String telefone, String endereco, Double taxa, List<Produto> itens) {
+    public Pedido(Long id, String nomeCliente, String telefone, String endereco, Double taxa,
+                     List<Produto> itens, StatusPedido status) {
         this.id = id;
         this.nomeCliente = nomeCliente;
         this.telefone = telefone;
@@ -73,17 +74,17 @@ public class Pedido {
         this.itens = itens;
         setValorTotalProdutos();
         this.valorTotal = this.valorTotalProdutos + this.taxa;
+        this.status = status;
     }
 
     public void setValorTotalProdutos(){
         double total = 0.0;
-        for(int i = 0; i < itens.size(); i++){
-            total += itens.get(i).getPrecoUnitario() * itens.get(i).getQuantidade();
-        }
+        if(!(itens == null)){   
+            for(int i = 0; i < itens.size(); i++){
+                total += itens.get(i).getPrecoUnitario() * itens.get(i).getQuantidade();
+            }
+        }     
         this.valorTotalProdutos = total;
     }
 
-    public void setValorTotal() {
-        valorTotal = valorTotalProdutos + taxa;
-    }
 }
