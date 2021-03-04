@@ -19,7 +19,7 @@ gradle wrapper
 
 - Caso não queira que a aplicação inicie com a database povoada, desabilite a classe "CarregarDados.java" comentando as anotações "@Configuration" e "@Bean"
 
-- Inicie a aplicação executando a classe principal "DesafioAplicattion.java".
+- Inicie a aplicação executando a classe principal "DesafioApplication.java".
 
 - A aplicação será iniciada em "http://localhost:8080" que é a porta padrão, altere o campo "server.port" no documento "application.properties" modificar a porta da aplicação.
 
