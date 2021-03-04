@@ -34,11 +34,15 @@ public class PedidoService {
     }
 
     public Pedido salvarPedido(Pedido pedido) {
-        return repository.saveAndFlush(pedido);
+        if(pedido.getId() != null && repository.existsById(pedido.getId()))
+            throw new UnsupportedOperationException("Um pedido com este id já existe");
+        else
+            return repository.saveAndFlush(pedido);
     }
 
     public Pedido alterarPedido(Long id, Pedido pedido) {
         Pedido alterado = verificarPedido(id, pedido);
+        pedido.setStatus(alterado.getStatus());
         if (alterado.getStatus().equals(pedido.getStatus())) {
             return repository.saveAndFlush(pedido);
         } else {

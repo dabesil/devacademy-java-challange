@@ -6,7 +6,16 @@
 ```bash
 git clone https://github.com/dabesil/devacademy-java-challange
 ```
-- Abra na IDE de preferencia e aguarde o gerenciador baixar todas as dependências.
+- Na pasta raiz do projeto execute o comando: 
+```bash
+gradle wrapper
+```
+- Abra na IDE de preferencia.
+
+- Para inicializar a aplicação execute o comando:
+```bash
+.\gradlew bootRun
+```
 
 - Caso não queira que a aplicação inicie com a database povoada, desabilite a classe "CarregarDados.java" comentando as anotações "@Configuration" e "@Bean"
 
@@ -22,7 +31,7 @@ git clone https://github.com/dabesil/devacademy-java-challange
 
 ### GET
 
-#### Buscar todos os pedidos ("/paginada?pagNum=X&pagTam=Y")
+#### Buscar todos os pedidos ("/paginada?numPag=X&tamPag=Y")
 
 - Retorna uma lista paginada com todos os pedidos.
 
@@ -62,6 +71,7 @@ Exemplo:
    }]
 }
 ```
+- Não é necessário informar o id do pedido.
 - O pedido é salvo por padrão com o status PENDENTE.
 - O valor total dos produtos e o valor total do pedido são calculados automaticamente.
 
@@ -81,7 +91,7 @@ Exemplo:
 
 ### PUT
 
-#### Salvar Pedido ("/{id}", requer body)
+#### Alterar Pedido ("/{id}", requer body)
 Exemplo:
 ```json
 {
