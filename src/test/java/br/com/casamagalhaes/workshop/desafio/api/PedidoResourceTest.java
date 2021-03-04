@@ -140,7 +140,7 @@ public class PedidoResourceTest {
             new Produto("Arroz 1Kg", 4.57, 3),
             new Produto("Açucar 1Kg", 2.75, 4),
             new Produto("Óleo de Soja 1L", 7.99, 2),
-            new Produto("Colchão Mole 1Kg", 43.25, 2)));  
+            new Produto("Coxão Mole 1Kg", 43.25, 2)));  
         return pedido;     
     }
 }
