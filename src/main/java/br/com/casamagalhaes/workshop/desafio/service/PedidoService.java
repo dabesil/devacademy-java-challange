@@ -54,7 +54,7 @@ public class PedidoService {
                     || alterado.getStatus().equals(StatusPedido.CANCELADO))) {
                 throw new UnsupportedOperationException("O Status não pode ser alterado.");
             } else if (pedido.getStatus().equals(StatusPedido.EM_ROTA)
-                    && !pedido.getStatus().equals(StatusPedido.PRONTO)) {
+                    && !alterado.getStatus().equals(StatusPedido.PRONTO)) {
                 throw new UnsupportedOperationException("O Status EM_ROTA só pode ser alterado se o atual for PRONTO.");
             } else if (pedido.getStatus().equals(StatusPedido.ENTREGUE)
                     && !alterado.getStatus().equals(StatusPedido.EM_ROTA)) {

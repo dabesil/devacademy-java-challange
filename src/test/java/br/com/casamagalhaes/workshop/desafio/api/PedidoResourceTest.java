@@ -18,6 +18,7 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Arrays;
 
@@ -74,35 +75,48 @@ public class PedidoResourceTest {
 
     @Test
     public void testarRespostaPOST() throws JsonProcessingException{
-        given()
+        PedidoDTO pedidoDTO = given()
             .spec(requisicao)
             .body(objectMapper.writeValueAsString(pedidoTestePOST()))
         .when()
             .post()
         .then()
-            .statusCode(HttpStatus.SC_CREATED);    
+            .statusCode(HttpStatus.SC_CREATED)
+            .extract()
+            .as(PedidoDTO.class); 
+        assertNotNull(pedidoDTO, "O pedido está nulo");       
     }   
     
     @Test
     public void testarRespostaPOSTStatus() throws JsonProcessingException{
-        given()
+        PedidoDTO pedidoDTO = given()
             .spec(requisicao)
             .body(objectMapper.writeValueAsString(pedidoTesteStatus()))
         .expect()
             .statusCode(HttpStatus.SC_OK)    
         .when()
-            .post("/1/status");
+            .post("/1/status")
+        .then()
+            .extract()
+            .as(PedidoDTO.class);
+        
+        assertNotNull(pedidoDTO, "O pedido está nulo");    
     }    
     
     @Test
     public void testarRespostaPUT() throws JsonProcessingException{
-        given()
+        PedidoDTO pedidoDTO = given()
             .spec(requisicao)
             .body(objectMapper.writeValueAsString(pedidoTestePUT()))
         .expect()
             .statusCode(HttpStatus.SC_OK)
         .when()
-            .put("/1");
+            .put("/1")
+        .then()
+            .extract()
+            .as(PedidoDTO.class);
+        
+        assertNotNull(pedidoDTO, "O pedido está nulo");       
     } 
 
     @Test
